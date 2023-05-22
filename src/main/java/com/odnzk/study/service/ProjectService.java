@@ -1,19 +1,20 @@
 package com.odnzk.study.service;
 
-import com.odnzk.study.dto.ProjectFormDto;
-import com.odnzk.study.model.Project;
+import com.odnzk.study.model.dto.ProjectFormDto;
+import com.odnzk.study.model.dto.UpdateProjectFormDto;
+import com.odnzk.study.model.entity.ProjectEntity;
+import com.odnzk.study.model.entity.UserEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProjectService {
-    void create(ProjectFormDto projectForm);
+    void create(ProjectFormDto projectForm, UserEntity user);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
-    void update(ProjectFormDto projectForm);
+    void update(UpdateProjectFormDto formDto);
 
-    List<Project> getUserProjects(Integer userId);
+    List<ProjectEntity> getUserProjects(UserEntity user);
 
-    Optional<Project> getProjectById(Integer projectId);
+    ProjectEntity getProjectById(Long id);
 }

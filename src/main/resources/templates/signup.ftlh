@@ -4,6 +4,7 @@
 
         <div class="d-flex w-50">
             <form method="post" action="signup" class="p-5 w-100">
+                <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
                 <h1>Signup</h1>
                 <br>
                 <div>
@@ -32,8 +33,8 @@
                 </div>
 
                 <div class="mb-3 form-check">
-                    <label class="form-check-label" for="agreement">Agree with user agreement</label>
                     <input class="form-check-input" type="checkbox" name="agreement" id="agreement" required>
+                    <label class="form-check-label" for="agreement">Agree with user agreement</label>
                 </div>
 
                 <input class="btn btn-primary" type="submit" value="Sign up">

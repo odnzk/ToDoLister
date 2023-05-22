@@ -1,9 +1,10 @@
-package com.odnzk.study.dto;
+package com.odnzk.study.model.dto;
 
 import com.odnzk.study.model.Priority;
+import com.odnzk.study.model.entity.ProjectEntity;
 
 public record TaskFormDto(
-        Long projectId,
+        ProjectEntity project,
         String title,
         Priority priority
 ) {

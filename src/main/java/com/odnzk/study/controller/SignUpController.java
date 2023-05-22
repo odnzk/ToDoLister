@@ -1,6 +1,7 @@
 package com.odnzk.study.controller;
 
-import com.odnzk.study.dto.SignUpFormDto;
+import com.odnzk.study.config.TodoListerEndpoint;
+import com.odnzk.study.model.dto.SignUpFormDto;
 import com.odnzk.study.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/signup")
+@RequestMapping(TodoListerEndpoint.SIGNUP)
 public class SignUpController {
-    AuthService service;
+    private final AuthService service;
 
     @GetMapping
     public String getPage(Model model) {
@@ -23,7 +24,7 @@ public class SignUpController {
     @PostMapping
     public String signup(SignUpFormDto signUpForm) {
         service.signUp(signUpForm);
-        return "redirect:/login";
+        return "redirect:" + TodoListerEndpoint.LOGIN;
     }
 
 }

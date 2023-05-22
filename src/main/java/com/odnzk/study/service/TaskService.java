@@ -1,18 +1,14 @@
 package com.odnzk.study.service;
 
-import com.odnzk.study.dto.TaskFormDto;
-import com.odnzk.study.model.Task;
-
-import java.util.List;
+import com.odnzk.study.model.dto.TaskFormDto;
+import com.odnzk.study.model.dto.UpdateTaskFormDto;
 
 public interface TaskService {
     void create(TaskFormDto taskFormDto);
 
-    void update(Task task);
+    void update(UpdateTaskFormDto updateTaskFormDto);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
-    Integer countAll();
-
-    List<Task> getProjectTasks(Integer projectId);
+   Long countAll();
 }

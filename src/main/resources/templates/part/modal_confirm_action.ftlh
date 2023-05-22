@@ -9,6 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" action="${actionUrl}">
+                        <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
                         <br>
                         <input class="btn btn-primary" type="submit" value="${actionTitle}">
                     </form>

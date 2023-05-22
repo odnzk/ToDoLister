@@ -1,10 +1,10 @@
 package com.odnzk.study.service;
 
-import com.odnzk.study.dto.UserFormDto;
-import com.odnzk.study.model.User;
+import com.odnzk.study.model.dto.UserFormDto;
+import com.odnzk.study.model.entity.UserEntity;
 
 public interface UserService {
     void update(UserFormDto userFormDto);
-    void deleteById(Integer id);
-    User getCurrentUser();
+
+    void deleteById(Long id);
 }

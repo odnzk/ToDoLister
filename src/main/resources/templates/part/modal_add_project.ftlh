@@ -8,6 +8,7 @@
             <div class="modal-body">
 <#--                todo check url-->
                 <form method="post" action="projects/add">
+                    <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
                     <div>
                         <label for="title" class="form-label"><b>Title</b></label>
                         <input type="text" class="form-control" name="title" id="title"

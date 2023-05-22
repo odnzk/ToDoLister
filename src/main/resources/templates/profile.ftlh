@@ -3,6 +3,7 @@
     <div class="d-container-fluid d-flex w-100 p-3">
 
         <form method="post" action="update" class="w-50 p-5">
+            <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
             <h1>Profile</h1>
             <br>
             <div class="input-group mb-3">
