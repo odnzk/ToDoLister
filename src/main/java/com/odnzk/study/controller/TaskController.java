@@ -5,25 +5,28 @@ import com.odnzk.study.model.dto.TaskFormDto;
 import com.odnzk.study.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(TodoListerEndpoint.TASKS)
 public class TaskController {
-    TaskService service;
+    private final TaskService service;
 
-    @PostMapping("/add")
+    @PatchMapping()
+    public String update(@RequestParam("id") Long id) {
+        service.updateIsCompletedState(id);
+        return "redirect:" + TodoListerEndpoint.PROJECTS;
+    }
+
+    @PostMapping()
     public String add(TaskFormDto taskFormDto) {
         service.create(taskFormDto);
         return "redirect:" + TodoListerEndpoint.PROJECTS;
     }
 
     // todo map to  /delete?id=${project.id}
-    @DeleteMapping("delete")
+    @DeleteMapping()
     public String delete(@RequestParam("id") Long id) {
         service.deleteById(id);
         return "redirect:" + TodoListerEndpoint.PROJECTS;

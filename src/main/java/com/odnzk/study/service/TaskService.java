@@ -10,5 +10,7 @@ public interface TaskService {
 
     void deleteById(Long id);
 
+    void updateIsCompletedState(Long taskId);
+
    Long countAll();
 }

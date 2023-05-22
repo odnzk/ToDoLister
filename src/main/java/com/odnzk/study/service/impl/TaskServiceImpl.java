@@ -1,6 +1,6 @@
 package com.odnzk.study.service.impl;
 
-import com.odnzk.study.exception.DoesNotExistException;
+import com.odnzk.study.exception.EntityDoesNotExistException;
 import com.odnzk.study.model.dto.TaskFormDto;
 import com.odnzk.study.model.dto.UpdateTaskFormDto;
 import com.odnzk.study.model.entity.TaskEntity;
@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void update(UpdateTaskFormDto form) {
         Optional<TaskEntity> optional = repository.findById(form.id());
-        if (optional.isEmpty()) throw new DoesNotExistException("Cannot update task since it does not exist");
+        if (optional.isEmpty()) throw new EntityDoesNotExistException("Cannot update task since it does not exist");
         TaskEntity task = optional.get();
         task.setCompeted(form.isCompleted());
         task.setPriority(form.priority());
@@ -38,6 +38,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public void updateIsCompletedState(Long taskId) {
+        TaskEntity task = repository.findById(taskId).orElseThrow(() -> new EntityDoesNotExistException("Task cannot be updated since it does not exist"));
+        task.setCompeted(!task.isCompeted());
+        repository.save(task);
     }
 
     @Override

@@ -1,10 +1,9 @@
 <#import "layout/main_layout.ftlh" as macros>
-<#import "part/modal_add_project.ftlh" as modalAddProject/>
-<#import "part/modal_confirm_action.ftlh" as modalConfirmAction />
 <#import "part/form_add_task.ftlh" as formAddTask />
 <#import "layout/task_layout.ftlh" as taskLayout/>
-<@macros.mainLayout title="Projects" isAuth=true>
-<#--    <@modalAddProject/> todo -->
+<@macros.mainLayout title="Projects" isAuth=true jsFiles=["projects"]>
+    <#include "part/modal_add_project.ftlh">
+    <#include "part/modal_confirm_action.ftlh">
 <#--    todo <@modalConfirmAction.modalConfirmAction actionTitle="Delete all project" actionUrl="" />-->
 
     <div class="d-container-fluid p-3 mt-2">

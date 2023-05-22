@@ -1,5 +1,5 @@
 <#import "layout/main_layout.ftlh" as macros>
-<@macros.mainLayout title="Achievements" isAuth=true>
+<@macros.mainLayout title="Achievements" isAuth=true jsFiles=[]>
     <div class="d-container-fluid p-3">
         <h1>Achievements</h1>
         <#list categories as category>

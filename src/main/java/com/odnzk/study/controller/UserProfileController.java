@@ -28,7 +28,6 @@ public class UserProfileController {
         return "redirect:" + TodoListerEndpoint.PROFILE;
     }
 
-    // todo map to  /delete?id=${project.id}
     @DeleteMapping("delete")
     public String delete(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         service.deleteById(userDetails.getUser().getId());

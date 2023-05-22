@@ -1,7 +1,7 @@
 package com.odnzk.study.config;
 
 
-import com.odnzk.study.exception.DoesNotExistException;
+import com.odnzk.study.exception.EntityDoesNotExistException;
 import com.odnzk.study.exception.UnknownException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +20,7 @@ public class ExceptionHandler {
         return createModelAndView(ex);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(DoesNotExistException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(EntityDoesNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Object handleNotFound(EntityNotFoundException ex) {
         return createModelAndView(ex);

@@ -17,18 +17,19 @@
                                placeholder="Enter title" required>
                     </div>
                     <div>
-                        <label class="form-label" for="startDate"><b>Start date</b></label>
+                        <label class="form-label" for="startDate"><b>Started</b></label>
                         <input class="form-control" placeholder="Enter start date"
                                type="date" name="startDate" id="startDate" required>
                     </div>
 
                     <div>
-                        <label class="form-label" for="finishDate"><b>Finish date</b></label>
+                        <label class="form-label" for="finishDate"><b>Deadline</b></label>
                         <input class="form-control" placeholder="Enter finish date"
                                type="date" name="finishDate" id="finishDate" required>
                     </div>
                     <br>
-                    <input class="btn btn-primary" type="submit" value="Add">
+
+                    <input class="btn btn-primary w-100" type="submit" value="Add">
                 </form>
             </div>
         </div>

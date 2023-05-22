@@ -1,6 +1,6 @@
 package com.odnzk.study.service.impl;
 
-import com.odnzk.study.exception.DoesNotExistException;
+import com.odnzk.study.exception.EntityDoesNotExistException;
 import com.odnzk.study.model.dto.UserFormDto;
 import com.odnzk.study.model.entity.UserEntity;
 import com.odnzk.study.repository.UserRepository;
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     public void update(UserFormDto userFormDto) {
         Optional<UserEntity> optionalUser = repository.findById(userFormDto.getId());
         if (optionalUser.isEmpty()) {
-            throw new DoesNotExistException("User cannot be updated because he does not exist");
+            throw new EntityDoesNotExistException("User cannot be updated because he does not exist");
         }
         UserEntity user = optionalUser.get();
         user.setEmail(userFormDto.getEmail());

@@ -1,5 +1,5 @@
 <#import "layout/main_layout.ftlh" as mainLayout>
-<@mainLayout.mainLayout title="Profile" isAuth=true>
+<@mainLayout.mainLayout title="Profile" isAuth=true jsFiles=["profile"]>
     <div class="d-container-fluid d-flex w-100 p-3 justify-content-center">
         <form method="post" action="update" class="w-50 p-5">
             <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
@@ -23,10 +23,8 @@
             </div>
             <input class="btn btn-primary w-100" type="submit" value="Change profile data">
             <br>
-            <#--            todo logout-->
             <button class="btn btn-primary w-100" id="logout">Logout</button>
             <br>
-            <#--            todo delete-->
             <button class="btn btn-primary w-100" id="delete">Delete</button>
         </form>
     </div>

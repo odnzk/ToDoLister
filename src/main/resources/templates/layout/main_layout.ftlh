@@ -1,12 +1,12 @@
-<#macro mainLayout title, isAuth>
+<#import '/spring.ftl' as spring/>
+<#macro mainLayout title, isAuth, jsFiles>
     <!DOCTYPE html>
     <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="<@spring.url '/css/bootstrap.min.css'/>"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <title>${title}</title>
     </head>
@@ -34,6 +34,12 @@
 
     <#nested>
 
+
+    <script src="<@spring.url '/js/bootstrap.min.js'/>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <#list jsFiles as file>
+        <script src="<@spring.url '/js/${file}.js' />"></script>
+    </#list>
     </body>
     </html>
 </#macro>
