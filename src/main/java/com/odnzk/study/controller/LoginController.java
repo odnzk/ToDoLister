@@ -11,17 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(TodoListerEndpoint.LOGIN)
 public class LoginController {
-//    AuthService service;
 
     @GetMapping
     public String getPage(Model model) {
         return "login";
     }
-
-//    @PostMapping
-//    public String login(LoginFormDto loginForm) {
-//        service.login(loginForm);
-//        return "redirect:/projects";
-//    }
 
 }

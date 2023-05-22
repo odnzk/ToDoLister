@@ -6,9 +6,11 @@
                 <h5 class="modal-title" id="exampleModalLabel">Add project</h5>
             </div>
             <div class="modal-body">
-<#--                todo check url-->
+                <#--                todo check url-->
                 <form method="post" action="projects/add">
-                    <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
+                    <#if _csrf.parameterName??>
+                        <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
+                    </#if>
                     <div>
                         <label for="title" class="form-label"><b>Title</b></label>
                         <input type="text" class="form-control" name="title" id="title"

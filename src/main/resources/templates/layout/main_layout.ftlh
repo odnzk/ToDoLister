@@ -1,4 +1,4 @@
-<#macro mainLayout title>
+<#macro mainLayout title, isAuth>
     <!DOCTYPE html>
     <html>
     <head>
@@ -6,8 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
-        <#assign bootstrapJsUrl = "@spring.url('/js/bootstrap.min.js')">
-        <script src="${bootstrapJsUrl}"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <title>${title}</title>
     </head>
@@ -20,12 +19,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="/projects">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/achievements">Achievements</a></li>
-                <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-                <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
-                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                <#if isAuth>
+                    <li class="nav-item active"><a class="nav-link" href="/projects">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/achievements">Achievements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                <#else>
+                    <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                </#if>
             </ul>
         </div>
     </nav>

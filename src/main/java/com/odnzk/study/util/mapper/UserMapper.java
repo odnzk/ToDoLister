@@ -11,9 +11,9 @@ import java.util.Collections;
 public class UserMapper {
     public static UserEntity from(SignUpFormDto form, PasswordEncoder passwordEncoder) {
         return UserEntity.builder()
-                .hashedPassword(passwordEncoder.encode(form.password()))
-                .username(form.username())
-                .email(form.email())
+                .hashedPassword(passwordEncoder.encode(form.getPassword()))
+                .username(form.getUsername())
+                .email(form.getEmail())
                 .achievements(Collections.emptyList())
                 .role(UserRole.USER)
                 .status(UserStatus.ACTIVE)

@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void signUp(SignUpFormDto signUpFormDto) {
-        Optional<UserEntity> optional = repository.findByUsername(signUpFormDto.username());
+        Optional<UserEntity> optional = repository.findByUsername(signUpFormDto.getUsername());
         if (optional.isPresent()) throw new AlreadyExistsException("User with this username already exists");
         UserEntity user = UserMapper.from(signUpFormDto, passwordEncoder);
         repository.save(user);

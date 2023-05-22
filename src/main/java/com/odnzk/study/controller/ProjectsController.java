@@ -21,16 +21,15 @@ public class ProjectsController {
     private final ProjectService service;
 
     @GetMapping
-    public String getPage(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        // todo get current user
+    public String getPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         List<ProjectEntity> projects = service.getUserProjects(userDetails.getUser());
         model.addAttribute("projects", projects);
         return "projects";
     }
 
     @PostMapping("/add")
-    public String add(ProjectFormDto projectFormDto) {
-//        service.create(projectFormDto);
+    public String add(@AuthenticationPrincipal UserDetailsImpl userDetails, ProjectFormDto projectFormDto) {
+        service.create(projectFormDto, userDetails.getUser());
         return "redirect:" + TodoListerEndpoint.PROJECTS;
     }
 

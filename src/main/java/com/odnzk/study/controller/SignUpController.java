@@ -5,7 +5,6 @@ import com.odnzk.study.model.dto.SignUpFormDto;
 import com.odnzk.study.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ public class SignUpController {
     private final AuthService service;
 
     @GetMapping
-    public String getPage(Model model) {
+    public String getPage() {
         return "signup";
     }
 

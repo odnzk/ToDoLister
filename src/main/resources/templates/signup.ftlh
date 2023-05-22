@@ -1,5 +1,5 @@
 <#import "layout/main_layout.ftlh" as macros>
-<@macros.mainLayout title="Signup">
+<@macros.mainLayout title="Signup" isAuth=false>
     <div class="d-flex align-items-center justify-content-center">
 
         <div class="d-flex w-50">
@@ -15,7 +15,8 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="email">Email</label>
-                    <input class="form-control" type="email" name="email" maxlength=30" id="email" placeholder="Enter email"
+                    <input class="form-control" type="email" name="email" maxlength=30" id="email"
+                           placeholder="Enter email"
                            required>
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
@@ -23,8 +24,9 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="password">Password</label>
-                    <input class="form-control" type="password" name="password" maxlength=20" minlength="8" id="password"
-                           required  placeholder="Enter password">
+                    <input class="form-control" type="password" name="password" maxlength=20" minlength="8"
+                           id="password"
+                           required placeholder="Enter password">
                     <div id="passwordHelpBlock" class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not contain
                         spaces,

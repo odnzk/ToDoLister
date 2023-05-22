@@ -53,6 +53,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage(TodoListerEndpoint.LOGIN)
+                .successForwardUrl(TodoListerEndpoint.PROJECTS)
                 .defaultSuccessUrl(TodoListerEndpoint.PROJECTS)
                 .and()
                 .logout()
@@ -65,7 +66,7 @@ public class SecurityConfig {
     }
 
     @Autowired
-    public void bindUserDetailsServiceAndPasswordEncoder(AuthenticationManagerBuilder builder) throws Exception {
+    public void bindService(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(service).passwordEncoder(passwordEncoder);
     }
 

@@ -1,8 +1,8 @@
 <#import "layout/main_layout.ftlh" as macros>
-<@macros.mainLayout title="Login">
+<@macros.mainLayout title="Login" isAuth=false>
     <div class="d-flex w-100 justify-content-center">
         <form method="post" action="/login" class="w-50 p-5">
-            <input type="hidden" name=" ${_csrf.parameterName}" value="${_csrf.token}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <h1>Login</h1>
             <br>
             <div>

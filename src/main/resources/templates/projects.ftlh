@@ -3,9 +3,9 @@
 <#import "part/modal_confirm_action.ftlh" as modalConfirmAction />
 <#import "part/form_add_task.ftlh" as formAddTask />
 <#import "layout/task_layout.ftlh" as taskLayout/>
-<@macros.mainLayout title="Projects">
-    <@modalAddProject/>
-    <@modalConfirmAction.modalConfirmAction actionTitle="Delete all project" actionUrl="" />
+<@macros.mainLayout title="Projects" isAuth=true>
+<#--    <@modalAddProject/> todo -->
+<#--    todo <@modalConfirmAction.modalConfirmAction actionTitle="Delete all project" actionUrl="" />-->
 
     <div class="d-container-fluid p-3 mt-2">
         <h3 class=""><b>Projects</b></h3>
@@ -21,12 +21,8 @@
     </div>
 
     <div class="container-fluid p-3 d-flex flex-wrap">
-        <#if !projects?has_conten>
+        <#if !projects?has_content>
             <h3>You have not created projects yet</h3>
-        <#--            todo show modal-->
-            <button data-toggle="modal" data-target="#addProjectModal" id="addProject" type="button"
-                    class="btn btn-primary pl-24 pr-24  mr-1"><i class="bi bi-plus"></i>
-            </button>
         </#if>
         <#list projects as project>
             <div class="card mt-2" style="width: 20rem;">
