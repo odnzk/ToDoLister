@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('startDate').valueAsDate = new Date();
     const btnAdd = document.getElementById('addProject');
     const btnClear = document.getElementById('clearAll');
-    const btnDeleteProject = document.getElementById('deleteProjectBtn');
     const finishDateInput = document.getElementById("finishDate");
     finishDateInput.valueAsDate = new Date();
 
@@ -10,13 +9,25 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#addProjectModal').modal('show');
     }
 
+    const elements = document.getElementsByClassName('deleteProjectBtn');
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].addEventListener('click', (event) => {
+            const projectId = elements[i].id
+            makeDeleteRequest(projectId)
+        });
+    }
+
     function makeDeleteRequest(id) {
-        const form = document.createElement('form');
-        form.method = 'DELETE';
-        form.action = '/projects';
-        form.append('id', id)
-        document.body.appendChild(form);
-        form.submit();
+        fetch(`/projects?id=${id}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(response => {
+                window.location.href = '/projects'
+            })
+            .catch(error => {
+                console.log("Error while deleting task")
+            });
     }
 
     function deleteProject(id) {
@@ -38,12 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         btnClear.addEventListener('click', function () {
             deleteProject(-1)
         });
-    }
-    if (btnDeleteProject) {
-        btnDeleteProject.addEventListener('click', function () {
-            const id = btnDeleteProject.classList.item(0)
-            deleteProject(id)
-        })
     }
 
     finishDateInput.addEventListener("input", function () {

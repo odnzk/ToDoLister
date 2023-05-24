@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', event => {
+
     const confirmUserAction = (actionMethod, actionUrl) => {
         if (confirm('Are you sure?')) {
             const form = document.createElement('form');
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 confirmUserAction('GET', '/logout');
                 break;
             case 'delete':
-                confirmUserAction('DELETE', '/projects');
+                confirmUserAction('DELETE', '/profile');
                 break;
             default:
                 break;

@@ -27,13 +27,10 @@ public class ProjectEntity {
     private Integer id;
     @Column(name = "title")
     private String title;
-    @Column(name = "is_completed", columnDefinition = "boolean default false")
-    private boolean isCompleted;
     @Column(name = "start_date")
     private Date startDate;
     @Column(name = "finish_date")
     private Date deadlineDate;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -46,6 +43,14 @@ public class ProjectEntity {
             return 100.0;
         } else {
             return (double) (tasks.stream().filter(TaskEntity::getIsCompleted).count() / tasks.size());
+        }
+    }
+
+    public Boolean isCompleted() {
+        if (tasks.size() == 0) {
+            return true;
+        } else {
+            return tasks.stream().allMatch(TaskEntity::getIsCompleted);
         }
     }
 }

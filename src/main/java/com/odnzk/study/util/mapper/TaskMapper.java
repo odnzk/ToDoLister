@@ -9,7 +9,7 @@ public class TaskMapper {
     public static TaskEntity from(TaskFormDto form, ProjectEntity project) {
         return TaskEntity
                 .builder()
-//                .priority(form.getPriority()) todo add priority
+                .priority(form.getPriority())
                 .isCompleted(false)
                 .title(form.getTitle())
                 .project(project)

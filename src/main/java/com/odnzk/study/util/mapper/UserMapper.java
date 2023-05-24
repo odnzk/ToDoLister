@@ -14,7 +14,7 @@ public class UserMapper {
                 .hashedPassword(passwordEncoder.encode(form.getPassword()))
                 .username(form.getUsername())
                 .email(form.getEmail())
-                .achievements(Collections.emptyList())
+                .achievements(Collections.emptySet())
                 .role(UserRole.USER)
                 .status(UserStatus.ACTIVE)
                 .build();

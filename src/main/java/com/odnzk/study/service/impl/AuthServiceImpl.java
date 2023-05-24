@@ -2,10 +2,12 @@ package com.odnzk.study.service.impl;
 
 import com.odnzk.study.exception.AlreadyExistsException;
 import com.odnzk.study.exception.EntityDoesNotExistException;
+import com.odnzk.study.model.Achievement;
 import com.odnzk.study.model.dto.ResetPasswordFormDto;
 import com.odnzk.study.model.dto.SignUpFormDto;
 import com.odnzk.study.model.entity.UserEntity;
 import com.odnzk.study.repository.UserRepository;
+import com.odnzk.study.service.AchievementService;
 import com.odnzk.study.service.AuthService;
 import com.odnzk.study.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository repository;
+    private final AchievementService achievementService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -26,7 +29,8 @@ public class AuthServiceImpl implements AuthService {
         Optional<UserEntity> optional = repository.findByUsername(signUpFormDto.getUsername());
         if (optional.isPresent()) throw new AlreadyExistsException("User with this username already exists");
         UserEntity user = UserMapper.from(signUpFormDto, passwordEncoder);
-        repository.save(user);
+        UserEntity createdUser = repository.save(user);
+        achievementService.unlockAchievement(Achievement.SIGN_UP, createdUser.getId());
     }
 
     @Override

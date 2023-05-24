@@ -8,13 +8,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(TodoListerEndpoint.PROFILE)
 public class UserProfileController {
-    UserService service;
+    private final UserService service;
 
     @GetMapping
     public String getPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
@@ -22,15 +25,15 @@ public class UserProfileController {
         return "profile";
     }
 
-    @PatchMapping("/update")
+    @PostMapping()
     public String update(UserFormDto userFormDto) {
         service.update(userFormDto);
         return "redirect:" + TodoListerEndpoint.PROFILE;
     }
 
-    @DeleteMapping("delete")
-    public String delete(@RequestParam("id") Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    @DeleteMapping()
+    public String delete(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         service.deleteById(userDetails.getUser().getId());
-        return "redirect:" + TodoListerEndpoint.PROFILE;
+        return "redirect:" + TodoListerEndpoint.LOGOUT;
     }
 }

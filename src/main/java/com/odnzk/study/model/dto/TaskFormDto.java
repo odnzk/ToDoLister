@@ -17,6 +17,6 @@ public class TaskFormDto {
     private Long projectId;
     @NotBlank
     private String title;
-//    @NotNull
-//    private Priority priority;
+    @NotNull
+    private Priority priority;
 }

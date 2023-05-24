@@ -1,13 +1,17 @@
 package com.odnzk.study.service.impl;
 
 import com.odnzk.study.exception.EntityDoesNotExistException;
+import com.odnzk.study.model.Achievement;
+import com.odnzk.study.model.Priority;
 import com.odnzk.study.model.dto.TaskFormDto;
 import com.odnzk.study.model.dto.UpdateTaskFormDto;
 import com.odnzk.study.model.entity.ProjectEntity;
 import com.odnzk.study.model.entity.TaskEntity;
 import com.odnzk.study.repository.ProjectRepository;
 import com.odnzk.study.repository.TaskRepository;
+import com.odnzk.study.service.AchievementService;
 import com.odnzk.study.service.TaskService;
+import com.odnzk.study.util.StringToPriorityConverter;
 import com.odnzk.study.util.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,7 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
     private final ProjectRepository projectRepository;
+    private final AchievementService achievementService;
 
     @Override
     public void create(TaskFormDto form) {
@@ -27,6 +32,7 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new EntityDoesNotExistException("Cannot create task for non-existing project"));
         TaskEntity task = TaskMapper.from(form, project);
         repository.save(task);
+        achievementService.unlockAchievement(Achievement.TASK_CREATED, project.getUser().getId());
     }
 
     @Override
@@ -50,6 +56,9 @@ public class TaskServiceImpl implements TaskService {
         TaskEntity task = repository.findById(taskId).orElseThrow(() -> new EntityDoesNotExistException("Task cannot be updated since it does not exist"));
         task.setIsCompleted(!task.getIsCompleted());
         repository.save(task);
+        if(task.getIsCompleted()){
+            achievementService.unlockAchievement(Achievement.TASK_COMPLETED, task.getProject().getUser().getId());
+        }
     }
 
     @Override

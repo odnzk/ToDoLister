@@ -8,7 +8,7 @@
     <#include "part/modal_confirm_action.ftlh">
 
     <div class="d-container-fluid p-3 mt-2">
-        <h3 class=""><b>Projects</b></h3>
+        <h3><b>Projects</b></h3>
         <div class="d-flex justify-content-end">
             <button data-toggle="modal" data-target="#addProjectModal" id="addProject" type="button"
                     class="btn btn-primary pl-24 pr-24  mr-1"><i class="bi bi-plus"></i>
@@ -21,14 +21,14 @@
     <div class="container-fluid p-3 d-flex flex-wrap">
         <#if !projects?has_content>
             <div class="d-flex flex-column w-100 justify-content-center align-items-center">
-                <img class="w-25" src="<@spring.url '/img/no-task.png'/>" alt="no task">
-                <h3>You have not created projects yet</h3>
+                <img style="width: 160px" src="<@spring.url '/img/ic_no_task.png'/>" alt="no task">
+                <h3 class="w-100 d-flex justify-content-center align-content-center">You have not created projects yet</h3>
             </div>
         </#if>
         <#list projects as project>
             <div class="card mt-2" style="width: 20rem;">
                 <div class="card-body">
-                    <i id="deleteProjectBtn" class="${project.id} bi bi-x-square-fill float-end"></i>
+                    <i id="${project.id}" class="${project.id} bi bi-x-square-fill float-end deleteProjectBtn"></i>
 
                     <p class="d-flex justify-content-center w-100">
                         ${project.startDate?string(dateFormat)} - ${project.deadlineDate?string(dateFormat)}

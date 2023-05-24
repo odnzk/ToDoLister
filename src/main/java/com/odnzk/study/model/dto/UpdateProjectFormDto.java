@@ -21,6 +21,4 @@ public class UpdateProjectFormDto {
     private String title;
     @Future
     private Date finishDate;
-    @NotNull
-    private Boolean isCompleted;
 }

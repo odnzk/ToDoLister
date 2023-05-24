@@ -32,8 +32,6 @@ public class ProjectsController {
 
     @PostMapping
     public String add(@AuthenticationPrincipal UserDetailsImpl userDetails, ProjectFormDto projectFormDto) {
-        // todo
-        log.debug("CREATING PROJECT");
         service.create(projectFormDto, userDetails.getUser());
         return "redirect:" + TodoListerEndpoint.PROJECTS;
     }
@@ -51,8 +49,6 @@ public class ProjectsController {
         } else {
             service.deleteAll();
         }
-        // todo
-//        return "redirect:/" + TodoListerEndpoint.PROJECTS;
     }
 
 

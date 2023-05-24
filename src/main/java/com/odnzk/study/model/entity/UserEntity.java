@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import static com.odnzk.study.model.entity.UserEntity.TABLE_NAME;
 
@@ -48,7 +49,7 @@ public class UserEntity implements Serializable {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", columnDefinition = "integer"),
             inverseJoinColumns = @JoinColumn(name = "achievement_id", referencedColumnName = "id")
     )
-    private List<AchievementEntity> achievements;
+    private Set<AchievementEntity> achievements;
 
     public boolean isActive() {
         return status == UserStatus.ACTIVE;

@@ -1,11 +1,13 @@
 package com.odnzk.study.service.impl;
 
 import com.odnzk.study.exception.EntityDoesNotExistException;
+import com.odnzk.study.model.Achievement;
 import com.odnzk.study.model.dto.ProjectFormDto;
 import com.odnzk.study.model.dto.UpdateProjectFormDto;
 import com.odnzk.study.model.entity.ProjectEntity;
 import com.odnzk.study.model.entity.UserEntity;
 import com.odnzk.study.repository.ProjectRepository;
+import com.odnzk.study.service.AchievementService;
 import com.odnzk.study.service.ProjectService;
 import com.odnzk.study.util.mapper.ProjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +21,22 @@ import java.util.Optional;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository repository;
+    private final AchievementService achievementService;
 
     @Override
     public void create(ProjectFormDto projectForm, UserEntity user) {
         projectForm.setUser(user);
         ProjectEntity project = ProjectMapper.from(projectForm);
         repository.save(project);
+        achievementService.unlockAchievement(Achievement.PROJECT_CREATED, user.getId());
     }
 
     @Override
     public void deleteById(Long id) {
+        ProjectEntity project = getProjectById(id);
+        if (project.isCompleted()) {
+            achievementService.unlockAchievement(Achievement.PROJECT_COMPLETED, project.getUser().getId());
+        }
         repository.deleteById(id);
     }
 
@@ -42,7 +50,6 @@ public class ProjectServiceImpl implements ProjectService {
         Optional<ProjectEntity> optional = repository.findById(formDto.getId());
         if (optional.isEmpty()) throw new EntityDoesNotExistException("Cannot update project since it does not exist");
         ProjectEntity project = optional.get();
-        project.setCompleted(formDto.getIsCompleted());
         project.setTitle(formDto.getTitle());
         project.setDeadlineDate(formDto.getFinishDate());
         repository.save(project);

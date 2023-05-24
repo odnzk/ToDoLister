@@ -1,21 +1,13 @@
 package com.odnzk.study;
 
-import com.odnzk.study.util.PriorityConverter;
+import com.odnzk.study.util.StringToPriorityConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class ToDoListerApplication implements WebMvcConfigurer {
@@ -30,8 +22,8 @@ public class ToDoListerApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public PriorityConverter priorityConverter() {
-        return new PriorityConverter();
+    public StringToPriorityConverter priorityConverter() {
+        return new StringToPriorityConverter();
     }
 
     @Override
