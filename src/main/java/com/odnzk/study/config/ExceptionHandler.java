@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Log4j2
 @ControllerAdvice
 public class ExceptionHandler {
+    // todo add all errors
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UnknownException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

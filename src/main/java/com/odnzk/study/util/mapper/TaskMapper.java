@@ -10,22 +10,22 @@ public class TaskMapper {
     public static TaskEntity from(TaskFormDto form) {
         return TaskEntity
                 .builder()
-                .priority(form.priority())
+                .priority(form.getPriority())
                 .isCompeted(false)
-                .title(form.title())
+                .title(form.getTitle())
 //                .project(form.project())
                 .build();
     }
 
-    public static TaskEntity starterTask(ProjectEntity project) {
-        return TaskEntity
-                .builder()
-                .priority(Priority.LOW)
-                .isCompeted(false)
-                .title("Starter task")
-//                .project(project)
-                .build();
-    }
+//    public static TaskEntity starterTask(ProjectEntity project) {
+//        return TaskEntity
+//                .builder()
+//                .priority(Priority.LOW)
+//                .isCompeted(false)
+//                .title("Starter task")
+////                .project(project)
+//                .build();
+//    }
 
 
 }

@@ -10,7 +10,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function clearAllProjects() {
-        $('#clearAllModal').modal('show');
+        if (confirm('Are you sure?')) {
+            const form = document.createElement('form');
+            form.method = 'DELETE';
+            form.action = '/projects';
+            form.append('id', 1)
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            window.location.href = '/projects';
+        }
     }
 
     function updateTask(checkbox) {

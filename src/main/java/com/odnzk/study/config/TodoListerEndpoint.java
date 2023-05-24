@@ -8,6 +8,7 @@ public class TodoListerEndpoint {
     public static final String LOGOUT = "/logout";
     public static final String LOGIN = "/login";
     public static final String TASKS = "/tasks";
+    public static final String RESTORE_PASSWORD = "/restore";
 
     // todo handle error endpoint: security + controller
     public static final String ERROR = "/error";

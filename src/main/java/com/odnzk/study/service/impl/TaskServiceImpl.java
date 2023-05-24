@@ -26,12 +26,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void update(UpdateTaskFormDto form) {
-        Optional<TaskEntity> optional = repository.findById(form.id());
+        Optional<TaskEntity> optional = repository.findById(form.getId());
         if (optional.isEmpty()) throw new EntityDoesNotExistException("Cannot update task since it does not exist");
         TaskEntity task = optional.get();
-        task.setCompeted(form.isCompleted());
-        task.setPriority(form.priority());
-        task.setTitle(form.title());
+        task.setCompeted(form.getIsComplete());
+        task.setPriority(form.getPriority());
+        task.setTitle(form.getTitle());
         repository.save(task);
     }
 

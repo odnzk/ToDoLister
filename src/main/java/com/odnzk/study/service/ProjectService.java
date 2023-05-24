@@ -12,6 +12,8 @@ public interface ProjectService {
 
     void deleteById(Long id);
 
+    void deleteAll();
+
     void update(UpdateProjectFormDto formDto);
 
     List<ProjectEntity> getUserProjects(UserEntity user);

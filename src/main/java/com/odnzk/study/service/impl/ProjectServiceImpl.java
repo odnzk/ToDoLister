@@ -33,19 +33,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
     public void update(UpdateProjectFormDto formDto) {
-        Optional<ProjectEntity> optional = repository.findById(formDto.id());
+        Optional<ProjectEntity> optional = repository.findById(formDto.getId());
         if (optional.isEmpty()) throw new EntityDoesNotExistException("Cannot update project since it does not exist");
         ProjectEntity project = optional.get();
-        project.setCompleted(formDto.isCompleted());
-        project.setTitle(formDto.title());
-        project.setDeadlineDate(formDto.finishDate());
+        project.setCompleted(formDto.getIsCompleted());
+        project.setTitle(formDto.getTitle());
+        project.setDeadlineDate(formDto.getFinishDate());
         repository.save(project);
     }
 
     @Override
     public List<ProjectEntity> getUserProjects(UserEntity user) {
-        return  repository.findProjectEntitiesByUser(user);
+        return repository.findProjectEntitiesByUser(user);
     }
 
     @Override

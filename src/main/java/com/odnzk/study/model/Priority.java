@@ -1,5 +1,16 @@
 package com.odnzk.study.model;
 
 public enum Priority {
-    HIGH, MEDIUM, LOW
+
+    HIGH("high"), MEDIUM("medium"), LOW("low");
+
+    private final String key;
+
+    Priority(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
+    }
 }

@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringRequestMatchers(TodoListerEndpoint.LOGIN, TodoListerEndpoint.SIGNUP)
+                .ignoringRequestMatchers(TodoListerEndpoint.PROJECTS) // todo remove
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
