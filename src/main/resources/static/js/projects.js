@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('startDate').valueAsDate = new Date();
     const btnAdd = document.getElementById('addProject');
     const btnClear = document.getElementById('clearAll');
+    const btnDeleteProject = document.getElementById('deleteProjectBtn');
     const finishDateInput = document.getElementById("finishDate");
     finishDateInput.valueAsDate = new Date();
 
@@ -9,45 +10,41 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#addProjectModal').modal('show');
     }
 
-    function clearAllProjects() {
-        if (confirm('Are you sure?')) {
-            const form = document.createElement('form');
-            form.method = 'DELETE';
-            form.action = '/projects';
-            form.append('id', 1)
-            document.body.appendChild(form);
-            form.submit();
-        } else {
-            window.location.href = '/projects';
-        }
+    function makeDeleteRequest(id) {
+        const form = document.createElement('form');
+        form.method = 'DELETE';
+        form.action = '/projects';
+        form.append('id', id)
+        document.body.appendChild(form);
+        form.submit();
     }
 
-    function updateTask(checkbox) {
-        const id = checkbox.classList.item(checkbox.classList.length - 1);
-        const xhr = new XMLHttpRequest();
-        xhr.open('PATCH', `/update?id=${id}`);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                // do something with the response, if needed
-                // todo
+    function deleteProject(id) {
+        if (id === -1) {
+            if (confirm('Are you sure?')) {
+                makeDeleteRequest(id)
+            } else {
+                window.location.href = '/projects';
             }
-        };
-        xhr.send();
+        } else {
+            makeDeleteRequest(id)
+        }
     }
 
     if (btnAdd) {
         btnAdd.addEventListener('click', addProject);
     }
     if (btnClear) {
-        btnClear.addEventListener('click', clearAllProjects);
-    }
-
-    Array.from(document.getElementsByClassName('checkbox-project-item'))
-        .forEach(cb => {
-            cb.addEventListener('click', function () {
-                updateTask(cb);
-            });
+        btnClear.addEventListener('click', function () {
+            deleteProject(-1)
         });
+    }
+    if (btnDeleteProject) {
+        btnDeleteProject.addEventListener('click', function () {
+            const id = btnDeleteProject.classList.item(0)
+            deleteProject(id)
+        })
+    }
 
     finishDateInput.addEventListener("input", function () {
         const startDate = document.getElementById('startDate').valueAsDate;

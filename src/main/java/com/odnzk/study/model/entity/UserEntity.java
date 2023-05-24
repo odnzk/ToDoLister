@@ -3,10 +3,7 @@ package com.odnzk.study.model.entity;
 import com.odnzk.study.model.UserRole;
 import com.odnzk.study.model.UserStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;

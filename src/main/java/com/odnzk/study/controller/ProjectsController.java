@@ -45,13 +45,14 @@ public class ProjectsController {
     }
 
     @DeleteMapping
-    public String delete(@RequestParam("id") Long id) {
+    public void delete(@RequestParam("id") Long id) {
         if (id != DELETE_ALL_ID) {
             service.deleteById(id);
         } else {
             service.deleteAll();
         }
-        return "redirect:/" + TodoListerEndpoint.PROJECTS;
+        // todo
+//        return "redirect:/" + TodoListerEndpoint.PROJECTS;
     }
 
 

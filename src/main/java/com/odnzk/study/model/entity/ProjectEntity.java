@@ -38,10 +38,14 @@ public class ProjectEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "project", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<TaskEntity> tasks;
 
-    Double calcProgress() {
-        return (double) (tasks.stream().filter(TaskEntity::isCompeted).count() / tasks.size());
+    public Double getProgress() {
+        if (tasks.size() == 0) {
+            return 100.0;
+        } else {
+            return (double) (tasks.stream().filter(TaskEntity::getIsCompleted).count() / tasks.size());
+        }
     }
 }

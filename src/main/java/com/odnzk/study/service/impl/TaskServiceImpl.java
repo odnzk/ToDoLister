@@ -3,7 +3,9 @@ package com.odnzk.study.service.impl;
 import com.odnzk.study.exception.EntityDoesNotExistException;
 import com.odnzk.study.model.dto.TaskFormDto;
 import com.odnzk.study.model.dto.UpdateTaskFormDto;
+import com.odnzk.study.model.entity.ProjectEntity;
 import com.odnzk.study.model.entity.TaskEntity;
+import com.odnzk.study.repository.ProjectRepository;
 import com.odnzk.study.repository.TaskRepository;
 import com.odnzk.study.service.TaskService;
 import com.odnzk.study.util.mapper.TaskMapper;
@@ -17,10 +19,13 @@ import java.util.Optional;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
+    private final ProjectRepository projectRepository;
 
     @Override
     public void create(TaskFormDto form) {
-        TaskEntity task = TaskMapper.from(form);
+        ProjectEntity project = projectRepository.findById(form.getProjectId())
+                .orElseThrow(() -> new EntityDoesNotExistException("Cannot create task for non-existing project"));
+        TaskEntity task = TaskMapper.from(form, project);
         repository.save(task);
     }
 
@@ -29,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
         Optional<TaskEntity> optional = repository.findById(form.getId());
         if (optional.isEmpty()) throw new EntityDoesNotExistException("Cannot update task since it does not exist");
         TaskEntity task = optional.get();
-        task.setCompeted(form.getIsComplete());
+        task.setIsCompleted(form.getIsComplete());
         task.setPriority(form.getPriority());
         task.setTitle(form.getTitle());
         repository.save(task);
@@ -43,7 +48,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void updateIsCompletedState(Long taskId) {
         TaskEntity task = repository.findById(taskId).orElseThrow(() -> new EntityDoesNotExistException("Task cannot be updated since it does not exist"));
-        task.setCompeted(!task.isCompeted());
+        task.setIsCompleted(!task.getIsCompleted());
         repository.save(task);
     }
 

@@ -1,7 +1,6 @@
 package com.odnzk.study.model.dto;
 
 import com.odnzk.study.model.Priority;
-import com.odnzk.study.model.entity.ProjectEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,9 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskFormDto {
-    private ProjectEntity project;
+    @NotNull
+    private Long projectId;
     @NotBlank
     private String title;
-    @NotNull
-    private Priority priority;
+//    @NotNull
+//    private Priority priority;
 }

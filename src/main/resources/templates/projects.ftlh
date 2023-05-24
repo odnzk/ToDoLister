@@ -2,7 +2,8 @@
 <#import "part/form_add_task.ftlh" as formAddTask />
 <#import "layout/task_layout.ftlh" as taskLayout/>
 <#import '/spring.ftl' as spring/>
-<@macros.mainLayout title="Projects" isAuth=true jsFiles=["projects"]>
+<#assign dateFormat='dd MMM'/>
+<@macros.mainLayout title="Projects" isAuth=true jsFiles=["projects", "task_layout"]>
     <#include "part/modal_add_project.ftlh">
     <#include "part/modal_confirm_action.ftlh">
 
@@ -27,29 +28,22 @@
         <#list projects as project>
             <div class="card mt-2" style="width: 20rem;">
                 <div class="card-body">
-                    <#--                    todo change method to ="DELETE"-->
-                    <a class="" href="/delete?id=${project.id}">
-                        <i class="bi bi-x-square-fill float-end"></i>
-                    </a>
+                    <i id="deleteProjectBtn" class="${project.id} bi bi-x-square-fill float-end"></i>
 
-                    <h5 class="card-title">${project.title}</h5>
+                    <p class="d-flex justify-content-center w-100">
+                        ${project.startDate?string(dateFormat)} - ${project.deadlineDate?string(dateFormat)}
+                    </p>
 
-                    <p class=""><b>Deadline:</b> ${project.deadlineDate}</p>
-
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar"
-                             style="width: ${project.progress}%" aria-valuenow="${project.progress}"
-                             aria-valuemin="0" aria-valuemax="100">${project.progress}%
-                        </div>
-                    </div>
-
-                    </br>
-                    <ul class="list-group">
-                        <#list project.tasks as task>
-                            <@taskLayout.taskLayout task=task />
-                        </#list>
-                    </ul>
+                    <h5 class="card-title d-flex justify-content-center w-100">${project.title}</h5>
                     <br>
+                    <#if project.tasks?has_content>
+                        <ul class="list-group">
+                            <#list project.tasks as taskEntity>
+                                <@taskLayout.taskLayout task=taskEntity />
+                            </#list>
+                        </ul>
+                        <br>
+                    </#if>
                     <@formAddTask.addTaskForm projectId=project.id />
                 </div>
             </div>

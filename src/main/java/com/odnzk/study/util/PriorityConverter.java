@@ -9,6 +9,9 @@ import java.util.Arrays;
 public class PriorityConverter implements Converter<String, Priority> {
     @Override
     public Priority convert(String source) {
+        if (source.length() == 0) {
+            return null;
+        }
         return Arrays.stream(Priority.values())
                 .filter(priority -> priority.getKey().equals(source))
                 .findAny()

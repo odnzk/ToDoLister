@@ -2,10 +2,7 @@ package com.odnzk.study.model.entity;
 
 import com.odnzk.study.model.Priority;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import static com.odnzk.study.model.entity.TaskEntity.TABLE_NAME;
 
@@ -14,6 +11,7 @@ import static com.odnzk.study.model.entity.TaskEntity.TABLE_NAME;
 @Data
 @Entity
 @Builder
+@ToString(exclude = "project")
 @Table(name = TABLE_NAME)
 public class TaskEntity {
     @Transient
@@ -26,12 +24,12 @@ public class TaskEntity {
     @Column(name = "title")
     private String title;
     @Column(name = "is_completed")
-    private boolean isCompeted;
+    private Boolean isCompleted;
     @Column(name = "priority")
     @Enumerated(value = EnumType.STRING)
     private Priority priority;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private ProjectEntity project;
 }

@@ -22,7 +22,7 @@
                        name="email" maxlength="30">
             </div>
             <input class="btn btn-primary w-100" type="submit" value="Change profile data">
-            <button class="btn btn-outline-dark w-100" id="delete">Delete</button>
+            <button class="btn btn-outline-secondary w-100" id="delete">Delete</button>
             <button class="btn btn-light w-100" id="logout">Logout</button>
         </form>
     </div>
