@@ -8,6 +8,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +20,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+@Log4j2
 @Component
 @PropertySource("classpath:todolister.properties")
 @RequiredArgsConstructor
@@ -53,6 +55,8 @@ public class EmailManager {
 
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {
+            // todo
+            log.warn("ERROR while sending email");
             throw new EmailSendingException("Error while sending an email");
         }
     }

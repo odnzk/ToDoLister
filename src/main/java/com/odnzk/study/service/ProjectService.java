@@ -19,4 +19,6 @@ public interface ProjectService {
     List<ProjectEntity> getUserProjects(UserEntity user);
 
     ProjectEntity getProjectById(Long id);
+
+    void archiveProject(Long id);
 }

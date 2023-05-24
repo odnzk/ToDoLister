@@ -22,13 +22,15 @@
         <#if !projects?has_content>
             <div class="d-flex flex-column w-100 justify-content-center align-items-center">
                 <img style="width: 160px" src="<@spring.url '/img/ic_no_task.png'/>" alt="no task">
-                <h3 class="w-100 d-flex justify-content-center align-content-center">You have not created projects yet</h3>
+                <h3 class="w-100 d-flex justify-content-center align-content-center">You have not created projects
+                    yet</h3>
             </div>
         </#if>
         <#list projects as project>
             <div class="card mt-2" style="width: 20rem;">
                 <div class="card-body">
                     <i id="${project.id}" class="${project.id} bi bi-x-square-fill float-end deleteProjectBtn"></i>
+                    <i id="${project.id}" class="bi bi-save2-fill float-start archiveBtn"></i>
 
                     <p class="d-flex justify-content-center w-100">
                         ${project.startDate?string(dateFormat)} - ${project.deadlineDate?string(dateFormat)}

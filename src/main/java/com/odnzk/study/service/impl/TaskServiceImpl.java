@@ -11,11 +11,11 @@ import com.odnzk.study.repository.ProjectRepository;
 import com.odnzk.study.repository.TaskRepository;
 import com.odnzk.study.service.AchievementService;
 import com.odnzk.study.service.TaskService;
-import com.odnzk.study.util.StringToPriorityConverter;
 import com.odnzk.study.util.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -56,13 +56,13 @@ public class TaskServiceImpl implements TaskService {
         TaskEntity task = repository.findById(taskId).orElseThrow(() -> new EntityDoesNotExistException("Task cannot be updated since it does not exist"));
         task.setIsCompleted(!task.getIsCompleted());
         repository.save(task);
-        if(task.getIsCompleted()){
+        if (task.getIsCompleted()) {
             achievementService.unlockAchievement(Achievement.TASK_COMPLETED, task.getProject().getUser().getId());
         }
     }
 
     @Override
-    public Long countAll() {
-        return repository.count();
+    public List<TaskEntity> getOrderedTasks(Priority priority) {
+        return repository.getOrderedTasks(priority);
     }
 }

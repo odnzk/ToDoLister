@@ -23,6 +23,7 @@
                     <li class="nav-item active"><a class="nav-link" href="/projects">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/achievements">Achievements</a></li>
                     <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/stats">Stats</a></li>
                 <#else>
                     <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
                     <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>

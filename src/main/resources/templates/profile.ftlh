@@ -25,7 +25,6 @@
             <input class="btn btn-primary w-100" type="submit" id="update" value="Change profile data">
         </form>
         <div class="w-50 p-2">
-            <button class="btn btn-outline-secondary w-100" id="delete">Delete</button>
             <button class="btn btn-light w-100" id="logout">Logout</button>
         </div>
     </div>

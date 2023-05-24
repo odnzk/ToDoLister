@@ -3,9 +3,7 @@ package com.odnzk.study.util.mapper;
 import com.odnzk.study.model.dto.ProjectFormDto;
 import com.odnzk.study.model.entity.ProjectEntity;
 
-import java.time.Instant;
 import java.util.Collections;
-import java.util.Date;
 
 public class ProjectMapper {
 
@@ -18,13 +16,4 @@ public class ProjectMapper {
                 .user(form.getUser())
                 .build();
     }
-
-//    public static ProjectFormDto starterProject() {
-//        return ProjectFormDto.builder()
-//                .startDate(Date.from(Instant.now()))
-//                .title("Starter project")
-//                .build();
-//    }
-
-
 }

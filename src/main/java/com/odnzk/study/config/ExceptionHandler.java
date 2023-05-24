@@ -1,8 +1,7 @@
 package com.odnzk.study.config;
 
 
-import com.odnzk.study.exception.EntityDoesNotExistException;
-import com.odnzk.study.exception.UnknownException;
+import com.odnzk.study.exception.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Log4j2
 @ControllerAdvice
 public class ExceptionHandler {
-    // todo add all errors
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UnknownException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -22,8 +20,26 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(EntityDoesNotExistException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Object handleNotFound(EntityNotFoundException ex) {
+        return createModelAndView(ex);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ConvertingExceptionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Object handleConverting(ConvertingExceptionException ex) {
+        return createModelAndView(ex);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(EmailSendingException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Object handleEmailSending(EmailSendingException ex) {
+        return createModelAndView(ex);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(AlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Object handleAlreadyExist(AlreadyExistsException ex) {
         return createModelAndView(ex);
     }
 

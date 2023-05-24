@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serial;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -51,7 +50,7 @@ public class UserDetailsImpl implements UserDetails {
         return user.isActive();
     }
 
-    public UserEntity getUser(){
-         return user;
+    public UserEntity getUser() {
+        return user;
     }
 }

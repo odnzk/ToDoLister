@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', event => {
                 } else {
                     label.classList.add(taskLabelStyleClass)
                 }
-                // todo update progress too
             }
         };
         xhr.send();

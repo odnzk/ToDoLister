@@ -5,17 +5,12 @@ document.addEventListener('DOMContentLoaded', event => {
     restoreBtn.addEventListener("click", function () {
         const inputValue = inputField.value;
         if (inputValue === "") {
-            alert("Username cannot be empty");
+            alert('Username cannot be empty');
         } else {
-            fetch("/reset", {
-                method: "GET",
-                body: JSON.stringify({username: inputValue}),
-                headers: {"Content-Type": "application/json"}
+            fetch(`/restore?username=${encodeURIComponent(inputValue)}`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
                 .catch(error => {
                     console.error(error);
                 });

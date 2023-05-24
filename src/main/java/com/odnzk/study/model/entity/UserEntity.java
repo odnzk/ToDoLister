@@ -3,8 +3,12 @@ package com.odnzk.study.model.entity;
 import com.odnzk.study.model.UserRole;
 import com.odnzk.study.model.UserStatus;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +24,7 @@ import static com.odnzk.study.model.entity.UserEntity.TABLE_NAME;
 public class UserEntity implements Serializable {
     @Transient
     public static final String TABLE_NAME = "users";
+    @Serial
     @Transient
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,6 +48,9 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<ProjectEntity> projects;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<ArchivedProjectEntity> archivedProjects;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_achievements",
@@ -53,14 +61,6 @@ public class UserEntity implements Serializable {
 
     public boolean isActive() {
         return status == UserStatus.ACTIVE;
-    }
-
-    public boolean isBanned() {
-        return status == UserStatus.BANNED;
-    }
-
-    public boolean isAdmin() {
-        return role == UserRole.ADMIN;
     }
 
 }

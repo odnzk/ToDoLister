@@ -2,15 +2,16 @@ package com.odnzk.study.controller;
 
 import com.odnzk.study.config.TodoListerEndpoint;
 import com.odnzk.study.model.dto.ResetPasswordFormDto;
-import com.odnzk.study.model.dto.ResetPasswordDto;
 import com.odnzk.study.service.AuthService;
 import com.odnzk.study.util.EmailManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 @RestController
@@ -20,8 +21,8 @@ public class RestorePasswordController {
     private final AuthService authService;
 
     @GetMapping
-    void restorePage(@RequestBody ResetPasswordDto formDto) throws IOException {
-        emailManager.sendEmail(formDto.username());
+    void restorePage(@RequestParam String username) throws IOException {
+        emailManager.sendEmail(username);
     }
 
     @PostMapping

@@ -9,11 +9,19 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#addProjectModal').modal('show');
     }
 
-    const elements = document.getElementsByClassName('deleteProjectBtn');
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('click', (event) => {
-            const projectId = elements[i].id
+    const btnsDeleteProject = document.getElementsByClassName('deleteProjectBtn');
+    for (let i = 0; i < btnsDeleteProject.length; i++) {
+        btnsDeleteProject[i].addEventListener('click', (event) => {
+            const projectId = btnsDeleteProject[i].id
             makeDeleteRequest(projectId)
+        });
+    }
+
+    const btnsArchiveProject = document.getElementsByClassName('archiveBtn');
+    for (let i = 0; i < btnsArchiveProject.length; i++) {
+        btnsArchiveProject[i].addEventListener('click', (event) => {
+            const projectId = btnsArchiveProject[i].id
+            makeArchiveRequest(projectId)
         });
     }
 
@@ -25,6 +33,17 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => {
                 window.location.href = '/projects'
             })
+            .catch(error => {
+                console.log("Error while deleting task")
+            });
+    }
+
+    function makeArchiveRequest(id) {
+        fetch(`/archive`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: {'projectId': id}
+        })
             .catch(error => {
                 console.log("Error while deleting task")
             });

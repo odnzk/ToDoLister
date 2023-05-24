@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Transient;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 import static com.odnzk.study.model.entity.AchievementEntity.TABLE_NAME;
 
@@ -19,11 +20,12 @@ import static com.odnzk.study.model.entity.AchievementEntity.TABLE_NAME;
 @Builder
 @Entity
 @Table(name = TABLE_NAME)
-public class AchievementEntity implements Serializable {
+public class ArchivedProjectEntity implements Serializable {
+//     todo check sql schema
     @Transient
-    public static final String TABLE_NAME = "achievements";
+    public static final String TABLE_NAME = "archived_projects";
     @Serial
-    @Transient
+    @jakarta.persistence.Transient
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,7 +33,17 @@ public class AchievementEntity implements Serializable {
     private Integer id;
     @Column(name = "title")
     private String title;
-    @Column(name = "category")
-    private String category;
+    @Column(name = "completed_task_count")
+    private Integer completedTasksCount;
+    @Column(name = "task_count")
+    private Integer tasksCount;
+    @Column(name = "start_date")
+    private Date startDate;
+    @Column(name = "finish_date")
+    private Date deadlineDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }
 

@@ -32,9 +32,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf()
+                .ignoringRequestMatchers(
+                        TodoListerEndpoint.LOGIN,
+                        TodoListerEndpoint.SIGNUP,
+                        TodoListerEndpoint.PROJECTS,
+                        TodoListerEndpoint.ARCHIVE_PROJECT,
+                        allPaths(TodoListerEndpoint.TASKS),
+                        allPaths(TodoListerEndpoint.PROFILE),
+                        allPaths(TodoListerEndpoint.RESTORE_PASSWORD))
+                // todo remove
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers(TodoListerEndpoint.LOGIN, TodoListerEndpoint.SIGNUP)
-                .ignoringRequestMatchers(TodoListerEndpoint.PROJECTS, TodoListerEndpoint.TASKS, TodoListerEndpoint.PROFILE) // todo remove
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(

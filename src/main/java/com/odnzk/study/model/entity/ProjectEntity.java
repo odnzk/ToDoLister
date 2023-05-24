@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +20,12 @@ import static com.odnzk.study.model.entity.ProjectEntity.TABLE_NAME;
 @Builder
 @Entity
 @Table(name = TABLE_NAME)
-public class ProjectEntity {
+public class ProjectEntity implements Serializable {
     @Transient
     public static final String TABLE_NAME = "projects";
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,14 +42,6 @@ public class ProjectEntity {
 
     @OneToMany(mappedBy = "project", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<TaskEntity> tasks;
-
-    public Double getProgress() {
-        if (tasks.size() == 0) {
-            return 100.0;
-        } else {
-            return (double) (tasks.stream().filter(TaskEntity::getIsCompleted).count() / tasks.size());
-        }
-    }
 
     public Boolean isCompleted() {
         if (tasks.size() == 0) {
