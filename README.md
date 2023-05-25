@@ -1,5 +1,7 @@
 # ToDoLister
 
+Public repository: https://github.com/odnzk/ToDoLister (foe history of commits)
+
 ## Description
 Application for convenient viewing current projects, dividing them into tasks in order to complete them faster and more productively
 
