@@ -1,5 +1,3 @@
-# Logo!!
-
 # ToDoLister
 
 ## Description
@@ -15,9 +13,6 @@ Application for convenient viewing current projects, dividing them into tasks in
 - Sync your project from `Todoist`
 - Check your achievements on `Achievements` page, unlock new one by discovering the application and completing tasks
 
-## Database scheme
-
-
 ## Technology stack
 
 - Spring Boot
@@ -31,7 +26,6 @@ Application for convenient viewing current projects, dividing them into tasks in
 - Bootstrap
 - Lombok
 
-## Screenshots
 
 
 
