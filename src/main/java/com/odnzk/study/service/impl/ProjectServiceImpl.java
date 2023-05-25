@@ -4,10 +4,12 @@ import com.odnzk.study.exception.EntityDoesNotExistException;
 import com.odnzk.study.model.Achievement;
 import com.odnzk.study.model.dto.ProjectFormDto;
 import com.odnzk.study.model.dto.UpdateProjectFormDto;
+import com.odnzk.study.model.entity.ArchivedProjectEntity;
 import com.odnzk.study.model.entity.ProjectEntity;
 import com.odnzk.study.model.entity.UserEntity;
 import com.odnzk.study.repository.ArchivedProjectRepository;
 import com.odnzk.study.repository.ProjectRepository;
+import com.odnzk.study.repository.UserRepository;
 import com.odnzk.study.service.AchievementService;
 import com.odnzk.study.service.ProjectService;
 import com.odnzk.study.util.mapper.ArchivedProjectMapper;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository repository;
+    private final UserRepository userRepository;
     private final AchievementService achievementService;
     private final ArchivedProjectRepository archivedProjectRepository;
 
@@ -32,6 +35,14 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectEntity project = ProjectMapper.from(projectForm);
         repository.save(project);
         achievementService.unlockAchievement(Achievement.PROJECT_CREATED, user.getId());
+    }
+
+    @Override
+    public void create(ProjectFormDto projectForm, String username) {
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new EntityDoesNotExistException("User with this username does not exit"));
+        projectForm.setUser(user);
+        ProjectEntity project = ProjectMapper.from(projectForm);
+        repository.save(project);
     }
 
     @Override
@@ -64,6 +75,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<ProjectEntity> getUserProjects(String username) {
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new EntityDoesNotExistException("User with this username does not exit"));
+        return repository.findProjectEntitiesByUser(user);
+    }
+
+    @Override
     public ProjectEntity getProjectById(Long id) {
         Optional<ProjectEntity> optional = repository.findById(id);
         if (optional.isEmpty()) throw new EntityDoesNotExistException("Project with this id does not exist");
@@ -73,6 +90,14 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void archiveProject(Long id) {
         ProjectEntity projectEntity = repository.findById(id).orElseThrow(() -> new EntityDoesNotExistException("Project with this id does not exist"));
-        archivedProjectRepository.save(ArchivedProjectMapper.from(projectEntity));
+        Optional<ArchivedProjectEntity> project = archivedProjectRepository.findByProjectId(projectEntity.getId());
+        if (project.isEmpty()) {
+            archivedProjectRepository.save(ArchivedProjectMapper.from(projectEntity));
+        }
+    }
+
+    @Override
+    public List<ArchivedProjectEntity> getByUserId(Long userId) {
+        return archivedProjectRepository.findByUserId(userId);
     }
 }

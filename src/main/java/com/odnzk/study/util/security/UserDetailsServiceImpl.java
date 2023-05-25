@@ -20,8 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //todo
-        log.debug("is present user: " + repository.findByUsername(username).isPresent());
         UserEntity user = repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with this username does not exist"));
         return new UserDetailsImpl(user);

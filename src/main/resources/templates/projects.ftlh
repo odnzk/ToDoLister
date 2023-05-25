@@ -30,7 +30,7 @@
             <div class="card mt-2" style="width: 20rem;">
                 <div class="card-body">
                     <i id="${project.id}" class="${project.id} bi bi-x-square-fill float-end deleteProjectBtn"></i>
-                    <i id="${project.id}" class="bi bi-save2-fill float-start archiveBtn"></i>
+                   <a href="/archive/${project.id}"><i id="${project.id}" class="bi bi-save2-fill float-start archiveBtn"></i></a>
 
                     <p class="d-flex justify-content-center w-100">
                         ${project.startDate?string(dateFormat)} - ${project.deadlineDate?string(dateFormat)}
@@ -41,7 +41,7 @@
                     <#if project.tasks?has_content>
                         <ul class="list-group">
                             <#list project.tasks as taskEntity>
-                                <@taskLayout.taskLayout task=taskEntity />
+                                <@taskLayout.taskLayout task=taskEntity isRemovingEnable=true />
                             </#list>
                         </ul>
                         <br>

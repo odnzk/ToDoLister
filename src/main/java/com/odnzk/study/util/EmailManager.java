@@ -10,6 +10,7 @@ import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import okhttp3.*;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class EmailManager {
     private final static String API_KEY_QUERY = "apikey";
     private final static String FTLH_TEMPLATE_FILE = "restore_password_form";
+    private final static String DEFAULT_ERROR_MESSAGE = "Error while sending an email";
 
     private final FreeMarkerConfigurer freeMarkerConfigurer;
     private final UserRepository repository;
@@ -43,21 +45,22 @@ public class EmailManager {
         return chain.proceed(modifiedRequest);
     }).build();
 
-    public void sendEmail(String username) throws IOException {
-        UserEntity user = repository.findByUsername(username).orElseThrow(() -> new EntityDoesNotExistException("User with this username does not exist"));
-        String htmlTemplate = generateResetPasswordForm(username);
-        RequestBody formBody = new FormBody.Builder()
-                .add("to", user.getEmail())
-                .add("from", "TodoLister")
-                .add("subject", "Restore your password")
-                .add("bodyHtml", htmlTemplate).build();
-        Request request = new Request.Builder().url(url).post(formBody).build();
+    public String sendEmail(String username) {
+        try {
+            UserEntity user = repository.findByUsername(username).orElseThrow(() -> new EntityDoesNotExistException("User with this username does not exist"));
+            String htmlTemplate = generateResetPasswordForm(username);
+            RequestBody formBody = new FormBody.Builder()
+                    .add("to", user.getEmail())
+                    .add("from", "TodoLister")
+                    .add("subject", "Restore your password")
+                    .add("bodyHtml", htmlTemplate).build();
+            Request request = new Request.Builder().url(url).post(formBody).build();
 
-        Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) {
-            // todo
-            log.warn("ERROR while sending email");
-            throw new EmailSendingException("Error while sending an email");
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) throw new EmailSendingException(DEFAULT_ERROR_MESSAGE);
+            return user.getEmail();
+        }catch (IOException exception){
+            throw new EmailSendingException(DEFAULT_ERROR_MESSAGE);
         }
     }
 

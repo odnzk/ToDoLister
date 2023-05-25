@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
-    @Query("SELECT t FROM TaskEntity t WHERE t.isCompleted AND t.priority = :priority GROUP BY t.project")
+    @Query("SELECT t FROM TaskEntity t " +
+            "WHERE t.isCompleted = true AND t.priority = :priority ORDER BY t.title")
     List<TaskEntity> getOrderedTasks(Priority priority);
-    // достаем только задачи выделенного уровня сложности для определенного проекта
 }

@@ -7,13 +7,7 @@ document.addEventListener('DOMContentLoaded', event => {
         if (inputValue === "") {
             alert('Username cannot be empty');
         } else {
-            fetch(`/restore?username=${encodeURIComponent(inputValue)}`, {
-                method: 'GET',
-                headers: {'Content-Type': 'application/json'}
-            })
-                .catch(error => {
-                    console.error(error);
-                });
+            window.location.href = `/restore?username=${encodeURIComponent(inputValue)}`
         }
     });
 });

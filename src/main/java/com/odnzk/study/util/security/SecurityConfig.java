@@ -37,10 +37,10 @@ public class SecurityConfig {
                         TodoListerEndpoint.SIGNUP,
                         TodoListerEndpoint.PROJECTS,
                         TodoListerEndpoint.ARCHIVE_PROJECT,
+                        TodoListerEndpoint.STATS,
                         allPaths(TodoListerEndpoint.TASKS),
                         allPaths(TodoListerEndpoint.PROFILE),
                         allPaths(TodoListerEndpoint.RESTORE_PASSWORD))
-                // todo remove
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeHttpRequests()
@@ -55,7 +55,10 @@ public class SecurityConfig {
                         allPaths(TodoListerEndpoint.PROJECTS),
                         allPaths(TodoListerEndpoint.PROFILE),
                         allPaths(TodoListerEndpoint.ACHIEVEMENTS),
-                        allPaths(TodoListerEndpoint.TASKS)
+                        allPaths(TodoListerEndpoint.TASKS),
+                        allPaths(TodoListerEndpoint.STATS),
+                        allPaths(TodoListerEndpoint.RESTORE_PASSWORD),
+                        allPaths(TodoListerEndpoint.ARCHIVE_PROJECT)
                 ).authenticated()
                 .requestMatchers(TodoListerEndpoint.ADMIN).hasAuthority("ADMIN")
                 .and()
