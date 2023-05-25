@@ -11,13 +11,13 @@
     <groupId>com.odnzk.study</groupId>
     <artifactId>ToDoLister</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>ToDoLister</name>
     <description>ToDoLister</description>
 
     <properties>
         <java.version>17</java.version>
-
+        <start-class>com.odnzk.study.ToDoListerApplication</start-class>
     </properties>
 
     <dependencies>
