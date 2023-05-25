@@ -1,8 +1,0 @@
-### Add task
-POST http://localhost:8091/tasks
-Content-Type: application/json
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com"
-}
-// todo

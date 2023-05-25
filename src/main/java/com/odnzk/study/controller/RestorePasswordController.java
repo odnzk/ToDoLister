@@ -7,9 +7,8 @@ import com.odnzk.study.util.EmailManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @Log4j2
 @Controller
@@ -21,8 +20,11 @@ public class RestorePasswordController {
     private final AuthService authService;
 
     @GetMapping
-    void restorePage(@RequestParam String username) throws IOException {
-        emailManager.sendEmail(username);
+    public String restorePage(@RequestParam("username") String username, Model model) {
+        // todo fix email sending
+        String sentTo = emailManager.sendEmail(username);
+        model.addAttribute("email", sentTo);
+        return "send_email_success";
     }
 
     @PostMapping

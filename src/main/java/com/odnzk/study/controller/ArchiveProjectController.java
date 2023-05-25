@@ -1,10 +1,10 @@
 package com.odnzk.study.controller;
 
 import com.odnzk.study.config.TodoListerEndpoint;
-import com.odnzk.study.model.dto.ArchiveRequestDto;
 import com.odnzk.study.service.ProjectService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArchiveProjectController {
     private final ProjectService service;
 
-//    todo complete native queries
-
-    @PostMapping(TodoListerEndpoint.ARCHIVE_PROJECT)
-    public void getPage(ArchiveRequestDto archiveRequestDto) {
-        service.archiveProject(archiveRequestDto.getProjectId());
+    @GetMapping(TodoListerEndpoint.ARCHIVE_PROJECT + "/{projectId}")
+    public void getPage(@PathVariable Long projectId) {
+        service.archiveProject(projectId);
     }
 }

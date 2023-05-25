@@ -6,15 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArchivedProjectRepository extends JpaRepository<ArchivedProjectEntity, Long> {
-    // todo
-//    @Query("SELECT a FROM ArchivedProjects a WHERE a.title IN " +
-//            "(SELECT u FROM Users u WHERE u.userId = :userId ORDER BY a.tasksCount DESC")
-//    List<ArchivedProjectEntity> findAllByCategoryNameOrderByPubDateDesc(String category);
-    // todo   select archProject where taskCount = :taskCount and userId: userId
-    // 1) достаем архивные проекты если это наш юзер
+    @Query("SELECT p FROM ArchivedProjectEntity p WHERE p.user IN (SELECT u FROM UserEntity u WHERE u.id = :userId) ORDER BY p.tasksCount DESC")
+    List<ArchivedProjectEntity> findByUserId(Long userId);
 
+    @Query("SELECT p FROM ArchivedProjectEntity p WHERE p.projectId = :projectId")
+    Optional<ArchivedProjectEntity> findByProjectId(Long projectId);
 
 }
